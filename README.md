@@ -9,10 +9,12 @@
 - **Deployment:** [Vercel](https://vercel.com/)
 
 ## Have Experience With
+
 - HTML/CSS
 - [Stripe](https://stripe.com)
 - [Clerk](https://clerk.com)
 - [Prisma](https://www.prisma.io/)
+- **SQL:** [Planetscale](https://planetscale.com/)
 
 ## Check out my portfolio
 
