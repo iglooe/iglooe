@@ -1,14 +1,18 @@
 # Welcome to my github
 
-## Tech Stack
+## Current Tech Stack
 
+- **Library** [React](https://react.dev)
 - **Framework:** [Next.js](https://nextjs.org)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com)
-- **User Management:** [Clerk](https://clerk.com)
-- **ORM:** [Prisma](https://www.prisma.io/)
 - **UI Components:** [shadcn/ui](https://ui.shadcn.com)
-- **Payments infrastructure:** [Stripe](https://stripe.com)
 - **Deployment:** [Vercel](https://vercel.com/)
+
+## Have Experience With
+- HTML/CSS
+- [Stripe](https://stripe.com)
+- [Clerk](https://clerk.com)
+- [Prisma](https://www.prisma.io/)
 
 ## Check out my portfolio
 
