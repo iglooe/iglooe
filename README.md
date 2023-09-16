@@ -11,7 +11,7 @@
 - HTML/CSS
 - [Stripe](https://stripe.com)
 - **Auth:** [Clerk](https://clerk.com)
-- **ORM: ** [Prisma](https://www.prisma.io/)
+- **ORM:** [Prisma](https://www.prisma.io/)
 - **SQL:** [Planetscale](https://planetscale.com/)
 
 ## Check out my portfolio
