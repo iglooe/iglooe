@@ -1,8 +1,6 @@
-# Welcome to my github
-
 ## Current Tech Stack
 
-- **Library** [React](https://react.dev)
+- **Library:** [React](https://react.dev)
 - **Framework:** [Next.js](https://nextjs.org)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com)
 - **UI Components:** [shadcn/ui](https://ui.shadcn.com)
@@ -12,8 +10,8 @@
 
 - HTML/CSS
 - [Stripe](https://stripe.com)
-- [Clerk](https://clerk.com)
-- [Prisma](https://www.prisma.io/)
+- **Auth:** [Clerk](https://clerk.com)
+- **ORM: ** [Prisma](https://www.prisma.io/)
 - **SQL:** [Planetscale](https://planetscale.com/)
 
 ## Check out my portfolio
