@@ -8,7 +8,7 @@
 
 ## Have Experience With
 
-- HTML/CSS
+- **HTML/CSS**
 - [Stripe](https://stripe.com)
 - **Auth:** [Clerk](https://clerk.com)
 - **ORM:** [Prisma](https://www.prisma.io/)
