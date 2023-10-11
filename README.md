@@ -17,7 +17,7 @@
 ## Check out my portfolio
 
 - [Dictionary](https://dictionary-beta-ten.vercel.app/)
-- [E-Commerce Admin](https://e-commerce-frontend-rose-beta.vercel.app/)
+- [E-Commerce Admin](https://e-commerce-admin-pearl.vercel.app/)
 - [E-Commerce Store](https://e-commerce-frontend-rose-beta.vercel.app/)
 
 ## Contributing
