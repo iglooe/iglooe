@@ -20,6 +20,7 @@
 - [E-Commerce Admin](https://e-commerce-admin-pearl.vercel.app/)
 - [E-Commerce Store](https://e-commerce-frontend-rose-beta.vercel.app/)
 - [Birdle](https://birdle-teal.vercel.app/)
+- [Notary](https://note-taking-app-beige-zeta.vercel.app/)
 
 ## Contributing
 
