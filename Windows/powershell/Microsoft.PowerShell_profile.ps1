@@ -13,23 +13,6 @@
 ### This is the default policy on Windows Server 2012 R2 and above for server Windows. For 
 ### more information about execution policies, run Get-Help about_Execution_Policies.
 
-#check for updates
-# try{
-#     $url = "https://raw.githubusercontent.com/ChrisTitusTech/powershell-profile/main/Microsoft.PowerShell_profile.ps1"
-#     $oldhash = Get-FileHash $PROFILE
-#     Invoke-RestMethod $url -OutFile "$env:temp/Microsoft.PowerShell_profile.ps1"
-#     $newhash = Get-FileHash "$env:temp/Microsoft.PowerShell_profile.ps1"
-#     if ($newhash -ne $oldhash) {
-#         Get-Content "$env:temp/Microsoft.PowerShell_profile.ps1" | Set-Content $PROFILE
-#         . $PROFILE
-#         return
-#     }
-# }
-# catch {
-#     Write-Error "unable to check for `$profile updates"
-# }
-# Remove-Variable @("newhash", "oldhash", "url")
-# Remove-Item  "$env:temp/Microsoft.PowerShell_profile.ps1"
 
 # Import Terminal Icons
 Import-Module -Name Terminal-Icons
@@ -136,26 +119,14 @@ Function Test-CommandExists {
 #
 if (Test-CommandExists nvim) {
     $EDITOR='nvim'
-} elseif (Test-CommandExists pvim) {
-    $EDITOR='pvim'
-} elseif (Test-CommandExists vim) {
-    $EDITOR='vim'
-} elseif (Test-CommandExists vi) {
-    $EDITOR='vi'
 } elseif (Test-CommandExists code) {
     $EDITOR='code'
-} elseif (Test-CommandExists notepad) {
-    $EDITOR='notepad'
-} elseif (Test-CommandExists notepad++) {
-    $EDITOR='notepad++'
-} elseif (Test-CommandExists sublime_text) {
-    $EDITOR='sublime_text'
 }
 Set-Alias -Name vim -Value $EDITOR
 
 
 function ll { Get-ChildItem -Path $pwd -File }
-function g { Set-Location $HOME\Documents\Github }
+function p { Set-Location $HOME\p\ }
 function gcom {
     git add .
     git commit -m "$args"
@@ -229,10 +200,10 @@ function pgrep($name) {
 # Be aware that if you are missing these lines from your profile, tab completion
 # for `choco` will not function.
 # See https://ch0.co/tab-completion for details.
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-    Import-Module "$ChocolateyProfile"
-}
+# $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+# if (Test-Path($ChocolateyProfile)) {
+#     Import-Module "$ChocolateyProfile"
+# }
 
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
