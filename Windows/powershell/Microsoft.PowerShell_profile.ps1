@@ -43,45 +43,45 @@ function Env: { Set-Location Env: }
 
 # Creates drive shortcut for Work Folders, if current user account is using it
 if (Test-Path "$env:USERPROFILE\Work Folders") {
-    New-PSDrive -Name Work -PSProvider FileSystem -Root "$env:USERPROFILE\Work Folders" -Description "Work Folders"
-    function Work: { Set-Location Work: }
+  New-PSDrive -Name Work -PSProvider FileSystem -Root "$env:USERPROFILE\Work Folders" -Description "Work Folders"
+  function Work: { Set-Location Work: }
 }
 
 # Set up command prompt and window title. Use UNIX-style convention for identifying 
 # whether user is elevated (root) or not. Window title shows current version of PowerShell
 # and appends [ADMIN] if appropriate for easy taskbar identification
 function prompt { 
-    if ($isAdmin) {
-        "[" + (Get-Location) + "] # " 
-    } else {
-        "[" + (Get-Location) + "] $ "
-    }
+  if ($isAdmin) {
+      "[" + (Get-Location) + "] # " 
+  } else {
+      "[" + (Get-Location) + "] $ "
+  }
 }
 
 $Host.UI.RawUI.WindowTitle = "PowerShell {0}" -f $PSVersionTable.PSVersion.ToString()
 if ($isAdmin) {
-    $Host.UI.RawUI.WindowTitle += " [ADMIN]"
+  $Host.UI.RawUI.WindowTitle += " [ADMIN]"
 }
 
 # Does the the rough equivalent of dir /s /b. For example, dirs *.png is dir /s /b *.png
 function dirs {
-    if ($args.Count -gt 0) {
-        Get-ChildItem -Recurse -Include "$args" | Foreach-Object FullName
-    } else {
-        Get-ChildItem -Recurse | Foreach-Object FullName
-    }
+  if ($args.Count -gt 0) {
+      Get-ChildItem -Recurse -Include "$args" | Foreach-Object FullName
+  } else {
+      Get-ChildItem -Recurse | Foreach-Object FullName
+  }
 }
 
 # Simple function to start a new elevated process. If arguments are supplied then 
 # a single command is started with admin rights; if not then a new admin instance
 # of PowerShell is started.
 function admin {
-    if ($args.Count -gt 0) {   
-        $argList = "& '" + $args + "'"
-        Start-Process "$psHome\powershell.exe" -Verb runAs -ArgumentList $argList
-    } else {
-        Start-Process "$psHome\powershell.exe" -Verb runAs
-    }
+  if ($args.Count -gt 0) {   
+      $argList = "& '" + $args + "'"
+      Start-Process "$psHome\powershell.exe" -Verb runAs -ArgumentList $argList
+  } else {
+      Start-Process "$psHome\powershell.exe" -Verb runAs
+  }
 }
 
 # Set UNIX-like aliases for the admin command, so sudo <command> will run the command
@@ -92,11 +92,11 @@ Set-Alias -Name sudo -Value admin
 
 # Make it easy to edit this profile once it's installed
 function Edit-Profile {
-    if ($host.Name -match "ise") {
-        $psISE.CurrentPowerShellTab.Files.Add($profile.CurrentUserAllHosts)
-    } else {
-        notepad $profile.CurrentUserAllHosts
-    }
+  if ($host.Name -match "ise") {
+      $psISE.CurrentPowerShellTab.Files.Add($profile.CurrentUserAllHosts)
+  } else {
+      notepad $profile.CurrentUserAllHosts
+  }
 }
 
 # We don't need these any more; they were just temporary variables to get to $isAdmin. 
@@ -105,12 +105,12 @@ Remove-Variable identity
 Remove-Variable principal
 
 Function Test-CommandExists {
-    Param ($command)
-    $oldPreference = $ErrorActionPreference
-    $ErrorActionPreference = 'SilentlyContinue'
-    try { if (Get-Command $command) { RETURN $true } }
-    Catch { Write-Host "$command does not exist"; RETURN $false }
-    Finally { $ErrorActionPreference = $oldPreference }
+  Param ($command)
+  $oldPreference = $ErrorActionPreference
+  $ErrorActionPreference = 'SilentlyContinue'
+  try { if (Get-Command $command) { RETURN $true } }
+  Catch { Write-Host "$command does not exist"; RETURN $false }
+  Finally { $ErrorActionPreference = $oldPreference }
 } 
 #
 # Aliases
@@ -118,92 +118,210 @@ Function Test-CommandExists {
 # If your favorite editor is not here, add an elseif and ensure that the directory it is installed in exists in your $env:Path
 #
 if (Test-CommandExists nvim) {
-    $EDITOR='nvim'
+  $EDITOR='nvim'
 } elseif (Test-CommandExists code) {
-    $EDITOR='code'
+  $EDITOR='code'
 }
 Set-Alias -Name vim -Value $EDITOR
 
 
 function ll { Get-ChildItem -Path $pwd -File }
+
+# Go to projects folder
 function p { Set-Location $HOME\p\ }
+
+# Go to my config folder
+function config { Set-Location $HOME\Documents\git\ }
+
+# Git add and commit with a custom message
 function gcom {
-    git add .
-    git commit -m "$args"
+  git add .
+  git commit -m "$args"
 }
+
+# Git add, commit with a custom message, and push to the remote repository
 function lazyg {
-    git add .
-    git commit -m "$args"
-    git push
+  git add .
+  git commit -m "$args"
+  git push
 }
-function Get-PubIP {
-    (Invoke-WebRequest http://ifconfig.me/ip ).Content
+
+# Clone a Git repository
+function gc {
+  git clone "$args"
 }
-function uptime {
-    #Windows Powershell only
-	If ($PSVersionTable.PSVersion.Major -eq 5 ) {
-		Get-WmiObject win32_operatingsystem |
-        Select-Object @{EXPRESSION={ $_.ConverttoDateTime($_.lastbootuptime)}} | Format-Table -HideTableHeaders
-	} Else {
-        net statistics workstation | Select-String "since" | foreach-object {$_.ToString().Replace('Statistics since ', '')}
+
+# Git reset
+function grh {
+  git reset --hard
+}
+
+# pnpm aliases
+function pnd {
+  pnpm dev
+}
+
+function pni {
+  pnpm install
+}
+
+# yarn aliases
+function yd {
+  yarn dev
+}
+
+function yi {
+  yarn install
+}
+
+# npm aliases
+function nd {
+  npm run dev
+}
+
+function ni {
+  npm install
+}
+
+function cna {
+  npx create-next-app@latest .
+}
+
+function rnm {
+    $nodeModulesPath = Join-Path $pwd "node_modules"
+
+    if (Test-Path $nodeModulesPath -PathType Container) {
+        Remove-Item -Path $nodeModulesPath -Recurse -Force
+        Write-Host "node_modules folder deleted."
+    } else {
+        Write-Host "No node_modules folder found in the current directory."
     }
 }
 
+# for redundancy lol
+function dnm {
+    $nodeModulesPath = Join-Path $pwd "node_modules"
+
+    if (Test-Path $nodeModulesPath -PathType Container) {
+        Remove-Item -Path $nodeModulesPath -Recurse -Force
+        Write-Host "node_modules folder deleted."
+    } else {
+        Write-Host "No node_modules folder found in the current directory."
+    }
+}
+
+# Get the public IP address using the ifconfig.me service
+function Get-PubIP {
+  (Invoke-WebRequest http://ifconfig.me/ip ).Content
+}
+
+# Display system uptime
+function uptime {
+  # Windows PowerShell only
+  If ($PSVersionTable.PSVersion.Major -eq 5 ) {
+      Get-WmiObject win32_operatingsystem |
+      Select-Object @{EXPRESSION={ $_.ConverttoDateTime($_.lastbootuptime)}} | Format-Table -HideTableHeaders
+  } Else {
+      net statistics workstation | Select-String "since" | foreach-object {$_.ToString().Replace('Statistics since ', '')}
+  }
+}
+
+# Reload the PowerShell profile
 function reload-profile {
-    & $profile
+  & $profile
 }
+
+# Find files with a given name in the current directory and its subdirectories
 function find-file($name) {
-    Get-ChildItem -recurse -filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
-        $place_path = $_.directory
-        Write-Output "${place_path}\${_}"
-    }
+  Get-ChildItem -Recurse -Filter "*${name}*" -ErrorAction SilentlyContinue | ForEach-Object {
+      $place_path = $_.directory
+      Write-Output "${place_path}\${_}"
+  }
 }
+
+# Extract a ZIP file to the current directory
 function unzip ($file) {
-    Write-Output("Extracting", $file, "to", $pwd)
-    $fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object { $_.FullName }
-    Expand-Archive -Path $fullFile -DestinationPath $pwd
+  Write-Output("Extracting", $file, "to", $pwd)
+  $fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object { $_.FullName }
+  Expand-Archive -Path $fullFile -DestinationPath $pwd
 }
+
+# Upload a file to ix.io using curl
 function ix ($file) {
-    curl.exe -F "f:1=@$file" ix.io
+  curl.exe -F "f:1=@$file" ix.io
 }
+
+# Search for a regex pattern in files within a specified directory or the pipeline input
 function grep($regex, $dir) {
-    if ( $dir ) {
-        Get-ChildItem $dir | select-string $regex
-        return
-    }
-    $input | select-string $regex
+  if ( $dir ) {
+      Get-ChildItem $dir | select-string $regex
+      return
+  }
+  $input | select-string $regex
 }
+
+# Create a file
 function touch($file) {
-    "" | Out-File $file -Encoding ASCII
+  "" | Out-File $file -Encoding ASCII
 }
+
+# Display information about volumes
 function df {
-    get-volume
+  get-volume
 }
+
+# Replace text in a file using a sed-like approach
 function sed($file, $find, $replace) {
-    (Get-Content $file).replace("$find", $replace) | Set-Content $file
+  (Get-Content $file).replace("$find", $replace) | Set-Content $file
 }
+
+# Find the location of an executable in the system PATH
 function which($name) {
-    Get-Command $name | Select-Object -ExpandProperty Definition
+  Get-Command $name | Select-Object -ExpandProperty Definition
 }
+
+# Set an environment variable
 function export($name, $value) {
-    set-item -force -path "env:$name" -value $value;
+  set-item -force -path "env:$name" -value $value;
 }
+
+# Stop a process by name
 function pkill($name) {
-    Get-Process $name -ErrorAction SilentlyContinue | Stop-Process
+  Get-Process $name -ErrorAction SilentlyContinue | Stop-Process
 }
+
+# Get information about a process by name
 function pgrep($name) {
-    Get-Process $name
+  Get-Process $name
 }
+
+# Create a New Directory and Move into It:
+function mkcd {
+  param([string]$name)
+  New-Item -ItemType Directory -Name $name
+  Set-Location $name
+}
+
+# Open a File or Folder in Explorer:
+function explore {
+  Invoke-Item .
+}
+
+# Run Powershell as Administrator:
+function admin {
+    Start-Process powershell -Verb RunAs
+}
+
 
 # Import the Chocolatey Profile that contains the necessary code to enable
 # tab-completions to function for `choco`.
 # Be aware that if you are missing these lines from your profile, tab completion
 # for `choco` will not function.
 # See https://ch0.co/tab-completion for details.
-# $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-# if (Test-Path($ChocolateyProfile)) {
-#     Import-Module "$ChocolateyProfile"
-# }
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
 
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
