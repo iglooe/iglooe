@@ -72,9 +72,7 @@ function dirs {
   }
 }
 
-# Simple function to start a new elevated process. If arguments are supplied then 
-# a single command is started with admin rights; if not then a new admin instance
-# of PowerShell is started.
+# Simple function to start a new elevated process.
 function admin {
   if ($args.Count -gt 0) {   
       $argList = "& '" + $args + "'"
@@ -141,7 +139,7 @@ function gcom {
 
 # Git add, commit with a custom message, and push to the remote repository
 function lazyg {
-  git add .
+  git add -A
   git commit -m "$args"
   git push
 }
@@ -175,7 +173,7 @@ function yi {
 }
 
 # npm aliases
-function nd {
+function nrd {
   npm run dev
 }
 
