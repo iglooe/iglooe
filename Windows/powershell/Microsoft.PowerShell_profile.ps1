@@ -22,8 +22,6 @@ $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
 $principal = New-Object Security.Principal.WindowsPrincipal $identity
 $isAdmin = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 
-# If so and the current host is a command line, then change to red color 
-# as warning to user that they are operating in an elevated context
 # Useful shortcuts for traversing directories
 function cd... { Set-Location ..\.. }
 function cd.... { Set-Location ..\..\.. }
@@ -86,7 +84,6 @@ function admin {
 # with elevated rights. 
 Set-Alias -Name su -Value admin
 Set-Alias -Name sudo -Value admin
-
 
 # Make it easy to edit this profile once it's installed
 function Edit-Profile {
@@ -154,6 +151,11 @@ function grh {
   git reset --hard
 }
 
+# clear
+function clear {
+  cls
+}
+
 # pnpm aliases
 function pnd {
   pnpm dev
@@ -183,6 +185,17 @@ function ni {
 
 function cna {
   npx create-next-app@latest .
+}
+
+function delete-git {
+    $gitFolderPath = Join-Path $pwd ".git"
+
+    if (Test-Path $gitFolderPath -PathType Container) {
+        Remove-Item -Path $gitFolderPath -Recurse -Force
+        Write-Host ".git folder deleted."
+    } else {
+        Write-Host "No .git folder found in the current directory."
+    }
 }
 
 function rnm {
@@ -242,11 +255,6 @@ function unzip ($file) {
   Write-Output("Extracting", $file, "to", $pwd)
   $fullFile = Get-ChildItem -Path $pwd -Filter .\cove.zip | ForEach-Object { $_.FullName }
   Expand-Archive -Path $fullFile -DestinationPath $pwd
-}
-
-# Upload a file to ix.io using curl
-function ix ($file) {
-  curl.exe -F "f:1=@$file" ix.io
 }
 
 # Search for a regex pattern in files within a specified directory or the pipeline input
@@ -310,7 +318,6 @@ function admin {
     Start-Process powershell -Verb RunAs
 }
 
-
 # Import the Chocolatey Profile that contains the necessary code to enable
 # tab-completions to function for `choco`.
 # Be aware that if you are missing these lines from your profile, tab completion
@@ -322,7 +329,6 @@ if (Test-Path($ChocolateyProfile)) {
 }
 
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
-
 
 ## Final Line to set prompt
 oh-my-posh init pwsh --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/cobalt2.omp.json | Invoke-Expression
