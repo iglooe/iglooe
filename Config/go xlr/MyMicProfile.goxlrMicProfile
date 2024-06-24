@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <MicProfileTree>
-  <dspTreeMicProfile MIC_MINI_EQ_90HZ_GAIN="-5.0" MIC_MINI_EQ_250HZ_GAIN="-3.0" MIC_MINI_EQ_500HZ_GAIN="-3.0"
+  <dspTreeMicProfile MIC_MINI_EQ_90HZ_GAIN="-9.0" MIC_MINI_EQ_250HZ_GAIN="0.0" MIC_MINI_EQ_500HZ_GAIN="-3.0"
                      MIC_MINI_EQ_1KHZ_GAIN="2.0" MIC_MINI_EQ_3KHZ_GAIN="2.0" MIC_MINI_EQ_8KHZ_GAIN="-3.0"
-                     MIC_MINI_EQ_90HZ_F="30.0" MIC_MINI_EQ_250HZ_F="100.0" MIC_MINI_EQ_500HZ_F="400.0"
+                     MIC_MINI_EQ_90HZ_F="30.0" MIC_MINI_EQ_250HZ_F="120.0" MIC_MINI_EQ_500HZ_F="400.0"
                      MIC_MINI_EQ_1KHZ_F="2000.0" MIC_MINI_EQ_3KHZ_F="2600.0" MIC_MINI_EQ_8KHZ_F="12000.0"
-                     MIC_COMP_THRESHOLD="-20" MIC_COMP_RATIO="9" MIC_COMP_ATTACK="1"
-                     MIC_COMP_RELEASE="2" MIC_COMP_MAKEUPGAIN="5" MIC_GATE_MACRO_AMOUNT="19"
-                     MIC_GATE_THRESOLD="-48" MIC_GATE_ATTACK="4" MIC_GATE_RELEASE="25"
-                     MIC_GATE_ENABLE="1" MIC_GATE_ATTEN="75" MIC_COMP_SELECT="1"/>
-  <setupTreeMicProfile MIC_TYPE="0" DYNAMIC_MIC_GAIN="4456448" CONDENSER_MIC_GAIN="1966080"
+                     MIC_COMP_THRESHOLD="-15" MIC_COMP_RATIO="8" MIC_COMP_ATTACK="1"
+                     MIC_COMP_RELEASE="9" MIC_COMP_MAKEUPGAIN="5" MIC_GATE_MACRO_AMOUNT="32"
+                     MIC_GATE_THRESOLD="-40" MIC_GATE_ATTACK="0" MIC_GATE_RELEASE="19"
+                     MIC_GATE_ENABLE="1" MIC_GATE_ATTEN="70" MIC_COMP_SELECT="1"/>
+  <setupTreeMicProfile MIC_TYPE="0" DYNAMIC_MIC_GAIN="3932160" CONDENSER_MIC_GAIN="1966080"
                        TRS_MIC_GAIN="1966080"/>
-  <micProfileUIMicProfile eqAdvanced="0" compAdvanced="0" gateAdvanced="1" eqFineTuneEnabled="1"/>
+  <micProfileUIMicProfile eqAdvanced="0" compAdvanced="1" gateAdvanced="1" eqFineTuneEnabled="1"/>
 </MicProfileTree>
