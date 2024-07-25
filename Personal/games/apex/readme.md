@@ -19,3 +19,9 @@ These are self explanitory, game keybinds and video settings
 ```text
 -preload -novid -refresh 240 -fullscreen +cl_showfps 1 +fps_max 188 +exec autoexec
 ```
+
+## Black crosshair
+
+```text
++reticle_color "2147483648 2147483648 2147483648"
+```
