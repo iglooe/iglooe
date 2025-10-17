@@ -1,0 +1,1 @@
+-high -useallavailablecores -fullscreen -dx12 -novsync
